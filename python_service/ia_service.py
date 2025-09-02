@@ -55,7 +55,7 @@ llm = Llama(
 @app.post("/generate")
 def generate_riddle():
     prompt = """
-Génère **une seule énigme cohérente et facile à comprendre par tout les humains, quelque chose de très logique, qui requiert une bonne réfléxion**.  
+Génère **une seule énigme cohérente et facile à comprendre par tous les humains, quelque chose de très logique, qui requiert une bonne réfléxion**.  
 Répond STRICTEMENT au format JSON valide avec ces champs :
 
 {
