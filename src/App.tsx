@@ -1,35 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import HomeScreen from "./HomeScreen";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [screen, setScreen] = useState<"home" | "game" | "settings" | "help">("home");
+
+  const startGame = () => setScreen("game");
+  const openSettings = () => setScreen("settings");
+  const openHelp = () => setScreen("help");
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {screen === "home" && <HomeScreen startGame={startGame} openSettings={openSettings} openHelp={openHelp} />}
+      {screen === "game" && <div>Écran de jeu ici</div>}
+      {screen === "settings" && <div>Paramètres ici</div>}
+      {screen === "help" && <div>Aide ici</div>}
     </>
-  )
+  );
 }
-
-export default App

@@ -1,8 +1,8 @@
 import { app, ipcMain, BrowserWindow } from "electron";
-import path from "path";
+import Url, { fileURLToPath } from "url";
+import { dirname, join } from "path";
 import Stream from "stream";
 import http from "http";
-import Url from "url";
 import require$$0 from "punycode";
 import https from "https";
 import zlib from "zlib";
@@ -742,14 +742,14 @@ function requireUrlStateMachine() {
       return url.replace(/\u0009|\u000A|\u000D/g, "");
     }
     function shortenPath(url) {
-      const path2 = url.path;
-      if (path2.length === 0) {
+      const path = url.path;
+      if (path.length === 0) {
         return;
       }
-      if (url.scheme === "file" && path2.length === 1 && isNormalizedWindowsDriveLetter(path2[0])) {
+      if (url.scheme === "file" && path.length === 1 && isNormalizedWindowsDriveLetter(path[0])) {
         return;
       }
-      path2.pop();
+      path.pop();
     }
     function includesCredentials(url) {
       return url.username !== "" || url.password !== "";
@@ -2995,22 +2995,26 @@ fetch.isRedirect = function(code) {
 };
 fetch.Promise = global.Promise;
 let win = null;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 async function createWindow() {
   win = new BrowserWindow({
     width: 1e3,
     height: 700,
     show: false,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: join(__dirname, "preload.js"),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: true
     },
     backgroundColor: "#0a0a0a"
   });
-  await win.loadURL(
-    process.env.VITE_DEV_SERVER_URL ?? `file://${path.join(__dirname, "../renderer/index.html")}`
-  );
+  if (process.env.VITE_DEV_SERVER_URL) {
+    win.loadURL(process.env.VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(join(__dirname, "../index.html"));
+  }
   win.once("ready-to-show", () => win?.show());
 }
 app.whenReady().then(async () => {

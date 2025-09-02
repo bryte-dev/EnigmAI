@@ -1,8 +1,13 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import fetch from "node-fetch"; 
 
 let win: BrowserWindow | null = null;
+let mainWindow: BrowserWindow;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -10,16 +15,18 @@ async function createWindow() {
     height: 700,
     show: false,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: join(__dirname, "preload.js"),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: true
     },
     backgroundColor: "#0a0a0a"
   });
-  await win.loadURL(
-    process.env.VITE_DEV_SERVER_URL ?? `file://${path.join(__dirname,"../renderer/index.html")}`
-  );
+if (process.env.VITE_DEV_SERVER_URL) {
+  win.loadURL(process.env.VITE_DEV_SERVER_URL);
+} else {
+  win.loadFile(join(__dirname, '../index.html'));
+}
   win.once("ready-to-show", () => win?.show());
 }
 
