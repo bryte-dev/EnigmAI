@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import HomeScreen from "./HomeScreen";
-import GameScreen from "D:/Enigmatik/enigmatik/src/GameScreen.tsx";
-import SettingsScreen from "D:/Enigmatik/enigmatik/src/SettingsScreen";
-import HelpScreen from "D:/Enigmatik/enigmatik/src/HelpScreen";
+import GameScreen from "./GameScreen.tsx";
+import SettingsScreen from "./SettingsScreen";
+import HelpScreen from "./HelpScreen";
 import './index.css';
 
 
