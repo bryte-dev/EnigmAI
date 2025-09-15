@@ -1,1 +1,54 @@
-node_modules
+# === Node / Vite / React ===
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# === Electron build ===
+/out/
+/build/
+/release/
+
+# === Logs / Debug ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# === Environment files ===
+.env
+.env.local
+.env.*.local
+
+# === Editor / IDE ===
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# === Python (service IA) ===
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache/
+.venv/
+venv/
+.envrc
+
+# === IA Models (très lourds, jamais push) ===
+/python_service/models/
+*.gguf
+*.bin
+*.pth
+*.ckpt
+*.safetensors
+
+# === SQLite / DB (si tu testes en local seulement) ===
+*.db
+*.sqlite3
+
+# === Coverage / Tests ===
+coverage/
+*.lcov
