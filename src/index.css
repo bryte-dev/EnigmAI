@@ -1,7 +1,7 @@
 
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
-@import "tw-animate-css";
+@import "tailwindcss/theme";       /* charge la palette de couleurs, radius, etc. */
+@import "tailwindcss/preflight";   /* reset navigateur */
+@import "tailwindcss/utilities";   /* classes utilitaires */
 
 @custom-variant dark (&:is(.dark *));
 

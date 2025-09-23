@@ -202,6 +202,9 @@ export default function GameScreen({ goBack }: GameScreenProps) {
         {/* Bouton valider épuré */}
         <motion.button
           onClick={handleSubmit}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
           disabled={!answer.trim() || feedback === "correct" || isSubmitting}
           className={`relative px-12 py-4 rounded-xl text-base font-medium transition-all duration-300 ${
             feedback === "correct" 
@@ -367,6 +370,24 @@ export default function GameScreen({ goBack }: GameScreenProps) {
           </motion.button>
         )}
       </AnimatePresence>
+
+      <motion.footer
+      className="absolute bottom-0 p-8 w-[100%] flex justify-evenly items-start "
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: -10 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}>
+
+        <motion.h1
+          className="text-2xl md:text-2xl font-extrabold mb-12 tracking-wide"
+          initial={{ opacity: 0, y: -80 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg">
+            2025 © EnigmAI
+          </span>
+        </motion.h1>
+      </motion.footer>
     </div>
   );
 }
