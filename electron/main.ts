@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import fetch from "node-fetch"; 
+import fetch from "node-fetch";
 
 let win: BrowserWindow | null = null;
 let mainWindow: BrowserWindow;

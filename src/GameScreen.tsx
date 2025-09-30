@@ -181,7 +181,7 @@ export default function GameScreen({ goBack }: GameScreenProps) {
 
         {/* Zone de réponse minimaliste */}
         <motion.div
-          className="w-[25%] max-w-md mb-8"
+          className="w-[55%] overflow-hidden max-w-md mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -192,7 +192,7 @@ export default function GameScreen({ goBack }: GameScreenProps) {
               onChange={(e) => setAnswer(e.target.value)}
               onKeyDown={handleKeyPress}
               placeholder="Votre réponse..."
-              className="w-full h-16 px-6 py-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white placeholder-white/40 resize-none focus:outline-none focus:border-purple-400/50 focus:bg-white/15 transition-all duration-300 text-center font-light"
+              className="w-full overflow-hidden h-16 px-6 py-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white placeholder-white/40 resize-none focus:outline-none focus:border-purple-400/50 focus:bg-white/15 transition-all duration-300 text-center font-light"
               disabled={feedback === "correct" || isSubmitting}
             />
             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 -z-10 blur-xl" />

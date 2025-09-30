@@ -89,7 +89,7 @@ export default function HomeScreen({ startGame, openSettings, openHelp }: HomeSc
         </div>
       </div>
        <motion.footer
-      className="absolute bottom-0 p-8 w-[100%] flex justify-evenly items-start "
+      className="fixed bottom-0 p-8 w-[100%] flex justify-evenly items-start "
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: -10 }}
         transition={{ duration: 0.8, ease: "easeOut" }}>
