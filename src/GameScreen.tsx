@@ -1,20 +1,60 @@
 // GameScreen.tsx
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type GameScreenProps = { goBack: () => void };
 
 export default function GameScreen({ goBack }: GameScreenProps) {
+  const [riddle, setRiddle] = useState<{ question: string; answer: string; hint: string } | null>(null);
+  const [loadingRiddle, setLoadingRiddle] = useState(false);
+  const riddleTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Ton ancien state
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
   const [attempts, setAttempts] = useState(0);
   const [showHint, setShowHint] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+
+
   // Données temporaires (en attendant l'API)
   const question = "Je parle toutes les langues mais je n'ai pas de bouche. Qui suis-je ?";
   const correctAnswer = "écho";
   const hint = "💡 C'est un phénomène sonore qui répète vos paroles.";
+
+  useEffect(() => {
+    const fetchRiddle = async () => {
+      setLoadingRiddle(true);
+      try {
+        const data = await window.electron.gpt.generateRiddle(); // ton IPC
+        setRiddle({
+          question: data.enigme,
+          answer: data.reponse,
+          hint: data.indice,
+        });
+      } catch (err) {
+        console.error("Erreur génération énigme :", err);
+      } finally {
+        setLoadingRiddle(false);
+      }
+    };
+
+    // Génération immédiate
+    fetchRiddle();
+
+    // SetInterval toutes les 30s
+    riddleTimer.current = setInterval(fetchRiddle, 30000);
+
+    // Cleanup
+    return () => {
+      if (riddleTimer.current) {
+        clearInterval(riddleTimer.current);
+        riddleTimer.current = null;
+      }
+    };
+  }, []);
+
   const maxAttempts = 3;
 
   const normalizeAnswer = (text: string): string => {
