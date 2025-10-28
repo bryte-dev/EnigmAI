@@ -43,8 +43,7 @@ Now, generate one riddle:
         max_tokens=800,
         temperature=0.5,
         top_p=0.9,
-        repeat_penalty=1.3,
-        verbose=True
+        repeat_penalty=1.3
     )
 
     text = output["choices"][0]["text"].strip()
@@ -56,7 +55,7 @@ Now, generate one riddle:
         for candidate in reversed(matches):  # prend le dernier trouvé
             try:
                 data = json.loads(candidate)
-                if all(k in data for k in ("enigme", "reponse", "indice")):
+                if all(k in data for k in ("riddle", "answer", "hint")):
                     return data
             except json.JSONDecodeError:
                 continue

@@ -1,14 +1,8 @@
-// src/db.ts
 import Database from "better-sqlite3";
-import { join } from "path";
-import { fileURLToPath } from "url";
-
-// Pour gérer __dirname en ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = join(__filename, "..");
+import path from "path";
 
 // DB à la racine de src/
-const dbPath = join(__dirname, "enigmai.db");
+const dbPath = path.join(__dirname, "enigmai.db");
 const db = new Database(dbPath);
 
 // Tables
